@@ -1,0 +1,20 @@
+//
+//  PhotoContentView.swift
+//  PhotoGallerySwiftUI
+//
+//  Created by Md Mehedi Hasan on 5/9/25.
+//
+
+import UIKit
+
+class PhotoContentView: UIView {
+
+    /*
+    // Only override draw() if you perform custom drawing.
+    // An empty implementation adversely affects performance during animation.
+    override func draw(_ rect: CGRect) {
+        // Drawing code
+    }
+    */
+
+}
