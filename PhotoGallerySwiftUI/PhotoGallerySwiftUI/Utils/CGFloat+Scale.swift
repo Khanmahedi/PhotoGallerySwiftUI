@@ -8,15 +8,14 @@
 import Foundation
 import SwiftUI
 
-extension CGFloat {
-    
+extension BinaryInteger {
     func scaleRespectToHeight(referenceHeight: CGFloat = 932) -> CGFloat {
         let screenHeight = UIScreen.main.bounds.height
-        return self / referenceHeight * screenHeight
+        return CGFloat(self) / referenceHeight * screenHeight
     }
     
     func scaleRespectToWidth(referenceWidth: CGFloat = 430) -> CGFloat {
         let screenWidth = UIScreen.main.bounds.width
-        return self / referenceWidth * screenWidth
+        return CGFloat(self) / referenceWidth * screenWidth
     }
 }
