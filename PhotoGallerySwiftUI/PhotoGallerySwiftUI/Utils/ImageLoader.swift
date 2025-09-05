@@ -9,32 +9,44 @@ import SwiftUI
 import Combine
 
 class ImageLoader: ObservableObject {
-    @Published var image: UIImage? = nil
+    @Published var image: UIImage?
     private var cancellable: AnyCancellable?
+    private static let cache = NSCache<NSURL, UIImage>()
     
     func load(url: URL) {
-        if let cached = ImageCache.shared.get(forKey: url.absoluteString) {
+        // Check cache first
+        if let cached = ImageLoader.cache.object(forKey: url as NSURL) {
             self.image = cached
             return
         }
         
+        // Download & decode off main thread
         cancellable = URLSession.shared.dataTaskPublisher(for: url)
-            .map { UIImage(data: $0.data) }
-            .replaceError(with: nil)
-            .handleEvents(receiveOutput: { img in
-                if let img = img {
-                    ImageCache.shared.set(img, forKey: url.absoluteString)
+            .map { data, _ -> UIImage? in
+                // Resize image to cell size to reduce memory load
+                if let uiImage = UIImage(data: data) {
+                    let size = CGSize(width: 200, height: 200) // your cell size
+                    let renderer = UIGraphicsImageRenderer(size: size)
+                    return renderer.image { _ in
+                        uiImage.draw(in: CGRect(origin: .zero, size: size))
+                    }
                 }
-            })
+                return nil
+            }
+            .subscribe(on: DispatchQueue.global(qos: .userInitiated)) // decode off main thread
             .receive(on: DispatchQueue.main)
-            .assign(to: \.image, on: self)
+            .sink { _ in } receiveValue: { [weak self] image in
+                if let image = image {
+                    ImageLoader.cache.setObject(image, forKey: url as NSURL)
+                    self?.image = image
+                }
+            }
     }
     
     func cancel() {
         cancellable?.cancel()
     }
 }
-
 class ImageCache {
     static let shared = ImageCache()
     private init() {}
