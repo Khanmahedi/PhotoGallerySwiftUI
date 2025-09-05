@@ -21,23 +21,25 @@ struct ContentView: View {
                         LazyVGrid(columns: columns, spacing: 10) {
                             ForEach(viewModel.photos) { photo in
 //                                NavigationLink(destination: PhotoDetailView(photo: photo)) {
-                                    AsyncImage(url: URL(string: photo.download_url)) { phase in
-                                        switch phase {
-                                        case .empty:
-                                            ProgressView()
-                                                .frame(height: 150)
-                                        case .success(let image):
-                                            image
-                                                .resizable()
-                                                .scaledToFill()
-                                                .frame(height: 150)
-                                                .clipped()
-                                        case .failure(_):
-                                            Color.gray.frame(height: 150)
-                                        @unknown default:
-                                            EmptyView()
-                                        }
-                                    }
+//                                    AsyncImage(url: URL(string: photo.download_url)) { phase in
+//                                        switch phase {
+//                                        case .empty:
+//                                            ProgressView()
+//                                                .frame(height: 150)
+//                                        case .success(let image):
+//                                            image
+//                                                .resizable()
+//                                                .scaledToFill()
+//                                                .frame(height: 150)
+//                                                .clipped()
+//                                        case .failure(_):
+//                                            Color.gray.frame(height: 150)
+//                                        @unknown default:
+//                                            EmptyView()
+//                                        }
+//                                    }
+                                
+                                AsyncImageView(url: URL(string: photo.download_url) ?? nil)
 //                                }
                             }
                         }
