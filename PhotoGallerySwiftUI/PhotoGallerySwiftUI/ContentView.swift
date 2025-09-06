@@ -18,29 +18,11 @@ struct ContentView: View {
             Group {
                 if !viewModel.photos.isEmpty {
                     ScrollView {
-                        LazyVGrid(columns: columns, spacing: 10) {
+                        LazyVGrid(columns: columns, spacing: 10.scaleRespectToHeight()) {
                             ForEach(viewModel.photos) { photo in
-//                                NavigationLink(destination: PhotoDetailView(photo: photo)) {
-//                                    AsyncImage(url: URL(string: photo.download_url)) { phase in
-//                                        switch phase {
-//                                        case .empty:
-//                                            ProgressView()
-//                                                .frame(height: 150)
-//                                        case .success(let image):
-//                                            image
-//                                                .resizable()
-//                                                .scaledToFill()
-//                                                .frame(height: 150)
-//                                                .clipped()
-//                                        case .failure(_):
-//                                            Color.gray.frame(height: 150)
-//                                        @unknown default:
-//                                            EmptyView()
-//                                        }
-//                                    }
-                                
+                                NavigationLink(destination: PhotoDetailView(photo: photo)) {
                                 AsyncImageView(url: URL(string: photo.download_url) ?? nil)
-//                                }
+                                }
                             }
                         }
                         .padding()
