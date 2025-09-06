@@ -21,7 +21,6 @@ class APIService {
     }
     
     func fetchPhotos() -> AnyPublisher<[Photo], Error> {
-        // Construct URL dynamically based on BASE_URL
         let val = API.baseURL
         guard let url = URL(string: "\(API.baseURL)/v2/list?page=1&limit=30") else {
             return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
