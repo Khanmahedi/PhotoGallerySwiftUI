@@ -22,6 +22,7 @@
 		39EB679A2E6AF86A007C567B /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39EB67992E6AF86A007C567B /* AsyncImageView.swift */; };
 		39EB679C2E6AFE4C007C567B /* CGFloat+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39EB679B2E6AFE4C007C567B /* CGFloat+Scale.swift */; };
 		39EB679E2E6BE350007C567B /* ShareImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39EB679D2E6BE350007C567B /* ShareImageLoader.swift */; };
+		39EB67A32E6BE84C007C567B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39EB67A22E6BE84C007C567B /* API.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,10 @@
 		39EB67992E6AF86A007C567B /* AsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
 		39EB679B2E6AFE4C007C567B /* CGFloat+Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Scale.swift"; sourceTree = "<group>"; };
 		39EB679D2E6BE350007C567B /* ShareImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareImageLoader.swift; sourceTree = "<group>"; };
+		39EB679F2E6BE6DB007C567B /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
+		39EB67A02E6BE6FE007C567B /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
+		39EB67A12E6BE7E0007C567B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		39EB67A22E6BE84C007C567B /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +95,8 @@
 		39EB674C2E6AAAAA007C567B = {
 			isa = PBXGroup;
 			children = (
+				39EB67A02E6BE6FE007C567B /* Production.xcconfig */,
+				39EB679F2E6BE6DB007C567B /* Development.xcconfig */,
 				39EB67572E6AAAAA007C567B /* PhotoGallerySwiftUI */,
 				39EB67682E6AAAAB007C567B /* PhotoGallerySwiftUITests */,
 				39EB67722E6AAAAB007C567B /* PhotoGallerySwiftUIUITests */,
@@ -110,6 +117,7 @@
 		39EB67572E6AAAAA007C567B /* PhotoGallerySwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				39EB67A12E6BE7E0007C567B /* Info.plist */,
 				39EB67962E6AF7CD007C567B /* Utils */,
 				39EB678F2E6AB156007C567B /*  Views */,
 				39EB678C2E6AB12C007C567B /* ViewModels */,
@@ -187,6 +195,7 @@
 				39EB67992E6AF86A007C567B /* AsyncImageView.swift */,
 				39EB679B2E6AFE4C007C567B /* CGFloat+Scale.swift */,
 				39EB679D2E6BE350007C567B /* ShareImageLoader.swift */,
+				39EB67A22E6BE84C007C567B /* API.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -321,6 +330,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39EB67A32E6BE84C007C567B /* API.swift in Sources */,
 				39EB679E2E6BE350007C567B /* ShareImageLoader.swift in Sources */,
 				39EB67982E6AF7D8007C567B /* ImageLoader.swift in Sources */,
 				39EB67862E6AB0DB007C567B /* Photo.swift in Sources */,
@@ -369,6 +379,7 @@
 /* Begin XCBuildConfiguration section */
 		39EB67772E6AAAAB007C567B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 39EB679F2E6BE6DB007C567B /* Development.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -432,6 +443,7 @@
 		};
 		39EB67782E6AAAAB007C567B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 39EB67A02E6BE6FE007C567B /* Production.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -496,6 +508,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"PhotoGallerySwiftUI/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PhotoGallerySwiftUI/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need permission to save photos to your library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -525,6 +538,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"PhotoGallerySwiftUI/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PhotoGallerySwiftUI/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need permission to save photos to your library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

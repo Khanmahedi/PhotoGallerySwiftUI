@@ -1,0 +1,12 @@
+//
+//  Development.xcconfig
+//  PhotoGallerySwiftUI
+//
+//  Created by Md Mehedi Hasan on 6/9/25.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+BASE_URL = https:/picsum.photos
+

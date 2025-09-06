@@ -13,15 +13,17 @@ class APIService {
     
     let session: URLSession
      
-     private init() {
-         let config = URLSessionConfiguration.default
-         config.urlCache = URLCache.shared
-         config.requestCachePolicy = .returnCacheDataElseLoad
-         self.session = URLSession(configuration: config)
-     }
+    private init() {
+        let config = URLSessionConfiguration.default
+        config.urlCache = URLCache.shared
+        config.requestCachePolicy = .returnCacheDataElseLoad
+        self.session = URLSession(configuration: config)
+    }
     
     func fetchPhotos() -> AnyPublisher<[Photo], Error> {
-        guard let url = URL(string: "https://picsum.photos/v2/list?page=1&limit=30") else {
+        // Construct URL dynamically based on BASE_URL
+        let val = API.baseURL
+        guard let url = URL(string: "\(API.baseURL)/v2/list?page=1&limit=30") else {
             return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
         }
         
@@ -32,5 +34,6 @@ class APIService {
             .eraseToAnyPublisher()
     }
 }
+
 
 
