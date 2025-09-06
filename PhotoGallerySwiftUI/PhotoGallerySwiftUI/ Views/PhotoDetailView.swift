@@ -9,11 +9,15 @@ import SwiftUI
 
 struct PhotoDetailView: View {
     let photo: Photo
+    @StateObject private var shareLoader = ShareImageLoader()
     
     @State private var scale: CGFloat = 1.0
     @State private var lastScale: CGFloat = 1.0
     @State private var offset: CGSize = .zero
     @State private var lastOffset: CGSize = .zero
+    
+    @State private var showAlert = false
+    @State private var alertMessage = ""
     
     var body: some View {
         GeometryReader { proxy in
@@ -60,6 +64,14 @@ struct PhotoDetailView: View {
                                     }
                                 }
                         )
+                        .onAppear {
+                            if let url = URL(string: photo.download_url) {
+                                shareLoader.load(from: url)
+                            }
+                        }
+                        .onDisappear {
+                            shareLoader.cancel()
+                        }
                 case .failure(_):
                     Color.gray.frame(width: proxy.size.width, height: proxy.size.height)
                 @unknown default:
@@ -70,12 +82,55 @@ struct PhotoDetailView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(photo.author)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Menu {
+                    Button("💾 Save as JPEG") {
+                        saveImage()
+                    }
+                    Button("📤 Share") {
+                        if let image = shareLoader.image {
+                            shareImage(image: image)
+                        }
+                    }
+                } label: {
+                    Image(systemName: "ellipsis.circle")
+                        .foregroundColor(.white)
+                        .font(.title2)
+                }
+            }
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text(alertMessage))
+        }
+    }
+    
+    private func saveImage() {
+        guard let image = shareLoader.image else {
+            alertMessage = "No image to save"
+            showAlert = true
+            return
+        }
+        
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        alertMessage = "Saved to Photos"
+        showAlert = true
+    }
+    
+    private func shareImage(image: UIImage) {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let rootVC = windowScene.windows.first?.rootViewController else { return }
+        
+        let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        rootVC.present(activityVC, animated: true)
     }
 }
+
 
 struct PhotoDetailView_Previews: PreviewProvider {
     static var previews: some View {
         PhotoDetailView(photo: Photo(id: "0", download_url: "https://picsum.photos/400/400", author: "Author"))
     }
 }
+
 
